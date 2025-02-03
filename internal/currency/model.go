@@ -1,32 +1,37 @@
 package currency
 
 type Currency struct {
-	Id                            int
-	Name                          string
-	Symbol                        string
-	Slug                          string
-	CmcRank                       int     // cmc_rank
-	NumMarketPairs                int     // num_market_pairs
-	CyrculatingSupply             float64 // circulating_supply
-	TotalSupply                   float64 // total_supply
-	MarketCapByTotalSupply        float64 // market_cap_by_total_supply
-	MaxSupply                     float64 // max_supply
-	InfiniteSupply                bool    // infinite_supply
-	LastUpdated                   string  // last_updated
-	DateAdded                     string  // date_added
-	Tags                          []string
-	SelfReportedCirculatingSupply float64 // self_reported_circulating_supply
-	SelfReportedMarketCap         float64 // self_reported_market_cap
-	TvlRatio                      float64 // tvl_ratio
-	Platform                      string
-	Quote                         map[string]float64
+	Id                            int       `json:id`
+	Name                          string    `json:"name,omitempty"`
+	Symbol                        string    `json:"symbol,omitempty"`
+	Slug                          string    `json:"slug,omitempty"`
+	CmcRank                       int       `json:"cmc_rank,omitempty"`
+	NumMarketPairs                int       `json:"num_market_pairs,omitempty"`
+	CyrculatingSupply             float64   `json:"cyrculating_supply,omitempty"`
+	TotalSupply                   float64   `json:"total_supply,omitempty"`
+	MarketCapByTotalSupply        float64   `json:"market_cap_by_total_supply,omitempty"`
+	MaxSupply                     float64   `json:"max_supply,omitempty"`
+	InfiniteSupply                bool      `json:"infinite_supply,omitempty"`
+	LastUpdated                   string    `json:"last_updated,omitempty"`
+	DateAdded                     string    `json:"date_added,omitempty"`
+	Tags                          []string  `json:"tags,omitempty"`
+	SelfReportedCirculatingSupply float64   `json:"self_reported_circulating_supply,omitempty"`
+	SelfReportedMarketCap         float64   `json:"self_reported_market_cap,omitempty"`
+	TvlRatio                      float64   `json:"tvl_ratio,omitempty"`
+	Platform                      string    `json:"platform,omitempty"`
+	Quote                         QuoteItem `json:"quote,omitempty"`
 }
 
 type Status struct {
-	Timestamp    string
-	ErrorCode    int    // error_code
-	ErrorMessage string // error_message
-	Elapsed      int
-	CreditCount  int // credit_count
-	Notice       string
+	Timestamp    string `json:"timestamp,omitempty"`
+	ErrorCode    int    `json:"error_code,omitempty"`
+	ErrorMessage string `json:"error_message,omitempty"`
+	Elapsed      int    `json:"elapsed,omitempty"`
+	CreditCount  int    `json:"credit_count,omitempty"`
+	Notice       string `json:"notice,omitempty"`
 }
+
+type CurrencyName string
+type CurrencyValue float64
+
+type QuoteItem map[CurrencyName]CurrencyValue
