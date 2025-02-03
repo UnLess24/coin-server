@@ -18,12 +18,15 @@ func Update(ctx context.Context, cfg *config.Config) {
 		case <-ctx.Done():
 			return
 		case <-ticker.C:
-			list, err := currency.SendRequest(ctx, cfg)
+			ctxTimeout, cancel := context.WithTimeout(ctx, cfg.RequestTimeout)
+			list, err := currency.SendRequest(ctxTimeout, cfg)
 			if err != nil {
+				cancel()
 				slog.Error("can`t get list data", "ERROR", err)
 				continue
 			}
 			slog.Info("list data", "ID", slog.IntValue(list.Data[0].Id))
+			cancel()
 		}
 	}
 }

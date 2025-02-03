@@ -11,6 +11,7 @@ type Config struct {
 	APIKey         string
 	LastListUrl    string
 	TickerDuration time.Duration
+	RequestTimeout time.Duration
 }
 
 func MustRead() *Config {
@@ -27,5 +28,6 @@ func MustRead() *Config {
 		APIKey:         viper.GetString("api_key"),
 		LastListUrl:    viper.GetString("last_list_url"),
 		TickerDuration: viper.GetDuration("ticker_duration"),
+		RequestTimeout: viper.GetDuration("request_timeout"),
 	}
 }
