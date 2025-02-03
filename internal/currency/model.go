@@ -32,6 +32,23 @@ type Status struct {
 }
 
 type CurrencyName string
-type CurrencyValue float64
+type CurrencyValue struct {
+	Price                 float64 `json:"price,omitempty"`
+	Volume24h             float64 `json:"volume_24h,omitempty"`
+	VolumeChange24h       float64 `json:"volume_change_24h,omitempty"`
+	Volume24hReported     float64 `json:"volume_24h_reported,omitempty"`
+	Volume7d              float64 `json:"volume_7d,omitempty"`
+	Volume7dReported      float64 `json:"volume_7d_reported,omitempty"`
+	Volume30d             float64 `json:"volume_30d,omitempty"`
+	Volume30dReported     float64 `json:"volume_30d_reported,omitempty"`
+	MarketCap             float64 `json:"market_cap,omitempty"`
+	MarkeCapDominance     float64 `json:"market_cap_dominance,omitempty"`
+	FullyDilutedMarketCap float64 `json:"fully_diluted_market_cap,omitempty"`
+	Tvl                   float64 `json:"tvl,omitempty"`
+	PercentChange1h       float64 `json:"percent_change_1h,omitempty"`
+	PercentChange24h      float64 `json:"percent_change_24h,omitempty"`
+	PercentChange7d       float64 `json:"percent_change_7d,omitempty"`
+	LastUpdated           string  `json:"last_updated,omitempty"`
+}
 
 type QuoteItem map[CurrencyName]CurrencyValue
