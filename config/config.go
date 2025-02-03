@@ -1,14 +1,19 @@
 package config
 
-import "github.com/spf13/viper"
+import (
+	"time"
+
+	"github.com/spf13/viper"
+)
 
 type Config struct {
-	Host        string
-	APIKey      string
-	LastListUrl string
+	Host           string
+	APIKey         string
+	LastListUrl    string
+	TickerDuration time.Duration
 }
 
-func MustRead() Config {
+func MustRead() *Config {
 	viper.SetConfigName("config")
 	viper.AddConfigPath(".")
 	viper.SetConfigType("yaml")
@@ -17,9 +22,10 @@ func MustRead() Config {
 	if err != nil {
 		panic(err)
 	}
-	return Config{
-		Host:        viper.GetString("host"),
-		APIKey:      viper.GetString("api_key"),
-		LastListUrl: viper.GetString("last_list_url"),
+	return &Config{
+		Host:           viper.GetString("host"),
+		APIKey:         viper.GetString("api_key"),
+		LastListUrl:    viper.GetString("last_list_url"),
+		TickerDuration: viper.GetDuration("ticker_duration"),
 	}
 }
