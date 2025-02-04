@@ -15,27 +15,25 @@ type ListResponse struct {
 	Status Status     `json:"status,omitempty"`
 }
 
-func SendRequest(ctx context.Context, cfg *config.Config) (ListResponse, error) {
+// LatestList send request to CoinMarketCap and get latest list of currencies
+func LatestList(ctx context.Context, cfg *config.Config) ([]byte, error) {
 	client := &http.Client{}
 	req, err := Request(ctx, cfg)
 	if err != nil {
-		return ListResponse{}, fmt.Errorf("failed to send request %w", err)
+		return nil, fmt.Errorf("failed to send request %w", err)
 	}
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return ListResponse{}, fmt.Errorf("failed to get response %w", err)
+		return nil, fmt.Errorf("failed to get response %w", err)
 	}
-	body, _ := io.ReadAll(resp.Body)
 	defer resp.Body.Close()
+	body, _ := io.ReadAll(resp.Body)
 
-	list, err := MakeList(body)
-	if err != nil {
-		return ListResponse{}, fmt.Errorf("failed to make list %w", err)
-	}
-	return list, nil
+	return body, nil
 }
 
+// MakeList unmarshal data to ListResponse
 func MakeList(data []byte) (ListResponse, error) {
 	list := ListResponse{}
 	err := json.Unmarshal(data, &list)

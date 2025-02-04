@@ -7,9 +7,10 @@ import (
 
 	"github.com/UnLess24/coin/server/config"
 	"github.com/UnLess24/coin/server/internal/currency"
+	"github.com/redis/go-redis/v9"
 )
 
-func Update(ctx context.Context, cfg *config.Config) {
+func Update(ctx context.Context, cache *redis.Client, cfg *config.Config) {
 	ticker := time.NewTicker(cfg.TickerDuration)
 	defer ticker.Stop()
 
@@ -19,13 +20,16 @@ func Update(ctx context.Context, cfg *config.Config) {
 			return
 		case <-ticker.C:
 			ctxTimeout, cancel := context.WithTimeout(ctx, cfg.RequestTimeout)
-			list, err := currency.SendRequest(ctxTimeout, cfg)
+			list, err := currency.LatestList(ctxTimeout, cfg)
 			if err != nil {
 				cancel()
 				slog.Error("can`t get list data", "ERROR", err)
 				continue
 			}
-			slog.Info("list data", "ID", slog.IntValue(list.Data[0].Id))
+			err = cache.Set(ctx, "list", list, 0).Err()
+			if err != nil {
+				slog.Error("can`t set list data to cache", "ERROR", err)
+			}
 			cancel()
 		}
 	}
