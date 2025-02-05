@@ -13,6 +13,6 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	rdb := cache.NewRedis(cfg)
-	cache.Update(ctx, rdb, cfg)
+	c := cache.NewRedis(cfg)
+	cache.Update(ctx, c, cfg)
 }

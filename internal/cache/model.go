@@ -1,14 +1,12 @@
 package cache
 
-import (
-	"github.com/UnLess24/coin/server/config"
-	"github.com/redis/go-redis/v9"
+import "context"
+
+const (
+	LatestListKey = "latest:list"
 )
 
-func NewRedis(cfg *config.Config) *redis.Client {
-	return redis.NewClient(&redis.Options{
-		Addr:     cfg.Redis.Host + ":" + cfg.Redis.Port,
-		Password: cfg.Redis.Password, // no password set
-		DB:       cfg.Redis.DB,       // use default DB
-	})
+type Cache interface {
+	Get(ctx context.Context, key string) ([]byte, error)
+	Set(ctx context.Context, key string, value []byte) error
 }
