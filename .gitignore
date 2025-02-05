@@ -1,0 +1,4 @@
+config.yaml
+
+/docker/redisdata
+/docker/.env
