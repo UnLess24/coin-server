@@ -7,6 +7,7 @@ import (
 )
 
 type Config struct {
+	Server         Server
 	CoinMarketCap  CoinMarketCap
 	TickerDuration time.Duration
 	RequestTimeout time.Duration
@@ -26,6 +27,11 @@ type Redis struct {
 	DB       int
 }
 
+type Server struct {
+	Host string
+	Port string
+}
+
 func MustRead() *Config {
 	viper.SetConfigName("config")
 	viper.AddConfigPath(".")
@@ -36,6 +42,10 @@ func MustRead() *Config {
 		panic(err)
 	}
 	return &Config{
+		Server: Server{
+			Host: viper.GetString("server.host"),
+			Port: viper.GetString("server.port"),
+		},
 		CoinMarketCap: CoinMarketCap{
 			Host:        viper.GetString("coinmarketcap.host"),
 			APIKey:      viper.GetString("coinmarketcap.api_key"),
