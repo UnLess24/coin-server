@@ -1,0 +1,17 @@
+coinmarketcap:
+    api_key: b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c
+    host: https://sandbox-api.coinmarketcap.com
+    last_list_url: /v1/cryptocurrency/listings/latest
+
+server:
+    host: localhost
+    port: ":8080"
+
+ticker_duration: 10s
+request_timeout: 10s
+
+redis:
+    host: localhost
+    port: 6380
+    db: 0
+    password: ""
