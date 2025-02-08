@@ -18,5 +18,7 @@ func main() {
 	go cache.Update(ctx, cdb, cfg)
 
 	r := server.New(cdb)
-	r.Run(cfg.Server.Port)
+	if err := r.Run(cfg.Server.Port); err != nil {
+		panic(err)
+	}
 }

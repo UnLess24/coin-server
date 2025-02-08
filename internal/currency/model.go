@@ -1,7 +1,7 @@
 package currency
 
 type Currency struct {
-	ID                            int       `json:id`
+	ID                            int       `json:"id"`
 	Name                          string    `json:"name,omitempty"`
 	Symbol                        string    `json:"symbol,omitempty"`
 	Slug                          string    `json:"slug,omitempty"`

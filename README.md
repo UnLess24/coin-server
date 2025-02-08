@@ -1,2 +1,3 @@
-print make up - to build and start project
-print make down - to finish project and remove all tmp containers and images
+- print **make up** - to build and start project
+- print **make down** - to finish project and remove all tmp containers and images
+- print **make lint** - to easy lining project by golangci-lint
