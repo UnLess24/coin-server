@@ -11,7 +11,7 @@ ticker_duration: 10s
 request_timeout: 10s
 
 redis:
-    host: localhost
-    port: 6380
+    host: "redis"
+    port: "6379"
     db: 0
     password: ""
