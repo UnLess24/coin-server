@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   redis:
     image: redis:latest
@@ -11,7 +9,7 @@ services:
     ports:
       - "6380:6379"
     volumes:
-      - ./redisdata:/data
+      - ~/redisdata:/data
     deploy:
       resources:
         limits:
@@ -39,3 +37,19 @@ services:
     restart: unless-stopped
     tty: true
     stdin_open: true
+    networks:
+      - coinmarketcap
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: server_container
+    ports:
+      - 8080:8080
+    links:
+      - redis
+    networks:
+      - coinmarketcap
+networks:
+  coinmarketcap:
+    driver: bridge

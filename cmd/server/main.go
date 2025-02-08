@@ -5,7 +5,7 @@ import (
 
 	"github.com/UnLess24/coin/server/config"
 	"github.com/UnLess24/coin/server/internal/cache"
-	"github.com/UnLess24/coin/server/server"
+	"github.com/UnLess24/coin/server/internal/server"
 )
 
 func main() {
