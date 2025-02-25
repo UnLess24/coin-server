@@ -14,7 +14,7 @@ type RedisCache struct {
 
 func NewRedis(cfg *config.Config) *RedisCache {
 	client := redis.NewClient(&redis.Options{
-		Addr:     cfg.Redis.Host + ":" + cfg.Redis.Port,
+		Addr:     fmt.Sprintf("%v:%v", cfg.Redis.Host, cfg.Redis.Port),
 		Password: cfg.Redis.Password, // no password set
 		DB:       cfg.Redis.DB,       // use default DB
 	})
