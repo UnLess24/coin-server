@@ -11,6 +11,7 @@ func New(c cache.Cache, addr string) *http.Server {
 	r := gin.Default()
 
 	r.GET("/list", listHandler(c))
+	r.GET("/currency/:currency", currencyHandler(c))
 
 	return &http.Server{
 		Addr:    addr,
