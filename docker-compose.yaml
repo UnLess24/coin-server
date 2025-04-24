@@ -50,6 +50,9 @@ services:
       - redis
     networks:
       - coinmarketcap
+      - coinclientserver
 networks:
   coinmarketcap:
     driver: bridge
+  coinclientserver:
+    external: true
