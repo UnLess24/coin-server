@@ -1,4 +1,4 @@
-package server
+package handler
 
 import (
 	"net/http"
@@ -9,9 +9,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func currencyHandler(cdb cache.Cache) func(*gin.Context) {
+type CurrencyResponse struct {
+	Name string
+	Data []currency.CurrencyValue `json:"data"`
+}
+
+func Currency(cdb cache.Cache) func(*gin.Context) {
 	return func(c *gin.Context) {
-		param := currency.CurrencyName(strings.ToUpper(c.Param("currency")))
+		name := strings.ToUpper(c.Query("currency"))
+		if name == "" {
+			c.JSON(http.StatusBadRequest, gin.H{"errorMessage": "currency is required"})
+			return
+		}
+
+		param := currency.CurrencyName(name)
 
 		list, err := cache.List(c.Request.Context(), cdb)
 		if err != nil {
@@ -26,6 +37,9 @@ func currencyHandler(cdb cache.Cache) func(*gin.Context) {
 			}
 		}
 
-		c.JSON(http.StatusOK, items)
+		c.JSON(http.StatusOK, CurrencyResponse{
+			Name: name,
+			Data: items,
+		})
 	}
 }

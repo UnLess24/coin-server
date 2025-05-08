@@ -1,4 +1,4 @@
-package server
+package handler
 
 import (
 	"net/http"
@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func listHandler(cdb cache.Cache) func(*gin.Context) {
+func List(cdb cache.Cache) func(*gin.Context) {
 	return func(c *gin.Context) {
 		list, err := cache.List(c.Request.Context(), cdb)
 		if err != nil {

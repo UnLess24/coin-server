@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package github.unless24.coin.server.protobuf.api.coin.v1;
+
+option go_package = "pkg/api/coin";
+
+message ListCoinsRequest {}
+
+message ListCoinsResponse {
+  // Список монет
+  repeated Currency currencies = 1;
+}
+
+message Currency {
+  int64 id = 1;
+  string name = 2;
+  string symbol = 3;
+  map<string, Quote> quote = 4;
+}
+
+message GetQuoteRequest {
+  string name = 1;
+}
+
+message GetQuoteResponse {
+  string name = 1;
+  repeated Quote quotes = 2;
+}
+
+message Quote {
+  float price = 2;
+  string last_updated = 3;
+}

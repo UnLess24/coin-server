@@ -3,3 +3,5 @@ config.yaml
 
 /docker/redisdata
 .env
+
+/bin

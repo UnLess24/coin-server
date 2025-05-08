@@ -30,6 +30,7 @@ type Redis struct {
 type Server struct {
 	Host string
 	Port string
+	Type string
 }
 
 func MustRead() *Config {
@@ -45,6 +46,7 @@ func MustRead() *Config {
 		Server: Server{
 			Host: viper.GetString("server.host"),
 			Port: viper.GetString("server.port"),
+			Type: viper.GetString("server.type"),
 		},
 		CoinMarketCap: CoinMarketCap{
 			Host:        viper.GetString("coinmarketcap.host"),

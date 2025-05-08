@@ -6,6 +6,7 @@ coinmarketcap:
 server:
     host: localhost
     port: ":8080"
+    type: grpc
 
 ticker_duration: 10s
 request_timeout: 10s

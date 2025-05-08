@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package github.unless24.coin.server.protobuf.api.coin.v1;
+
+import "api/coin/messages.proto";
+
+option go_package = "pkg/api/coin";
+
+// CoinService - получения списка монет
+service CoinService {
+  // ListCoin - получение списка монет
+  rpc ListCoins(ListCoinsRequest) returns (ListCoinsResponse);
+
+  // GetCurrency - получение валюты
+  rpc GetQuote(GetQuoteRequest) returns (GetQuoteResponse);
+}

@@ -31,15 +31,20 @@ func main() {
 	cdb := cache.NewRedis(cfg)
 	go cache.Update(ctx, cdb, cfg)
 
-	srv := server.New(cdb, cfg.Server.Port)
+	srv, err := server.New(cdb, cfg.Server.Port, cfg.Server.Type)
+	if err != nil {
+		slog.Error("exit reason", "ERROR", err)
+		return
+	}
+	defer srv.Close()
 
 	g, gCtx := errgroup.WithContext(ctx)
 	g.Go(func() error {
-		return srv.ListenAndServe()
+		return srv.Serve()
 	})
 	g.Go(func() error {
 		<-gCtx.Done()
-		return srv.Shutdown(context.Background())
+		return srv.Shutdown()
 	})
 
 	if err := g.Wait(); err != nil {
