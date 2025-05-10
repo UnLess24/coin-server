@@ -27,7 +27,7 @@ func LatestList(ctx context.Context, cfg *config.Config) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to get response %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	body, _ := io.ReadAll(resp.Body)
 
 	return body, nil

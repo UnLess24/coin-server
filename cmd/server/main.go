@@ -36,7 +36,7 @@ func main() {
 		slog.Error("exit reason", "ERROR", err)
 		return
 	}
-	defer srv.Close()
+	defer func() { _ = srv.Close() }()
 
 	g, gCtx := errgroup.WithContext(ctx)
 	g.Go(func() error {
