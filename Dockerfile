@@ -7,7 +7,6 @@ WORKDIR /build
 ADD go.mod .
 ADD go.sum .
 ADD config.yaml .
-RUN go mod download
 COPY . .
 RUN go build -ldflags="-s -w" -o /app/server cmd/server/main.go
 
